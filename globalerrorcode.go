@@ -1,5 +1,5 @@
 package common
 
 const (
-	LOAD_MAP_TIMEOUT_TIME = 1
+    LOAD_MAP_TIMEOUT_TIME = 1
 )

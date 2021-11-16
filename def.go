@@ -1,0 +1,11 @@
+package common
+
+const (
+	LOGINSERVER   = 1
+	DBSERVER      = 2
+	GLOBALSERVER  = 3
+	GATEWAYSERVER = 4
+	MATCHSERVER   = 5
+	GAMESERVER    = 6
+	SCENESERVER   = 7
+)

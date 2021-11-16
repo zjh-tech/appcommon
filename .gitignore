@@ -1,1 +1,4 @@
 go.sum
+globalerrorcode.go
+tiperrorcode.go
+config/*

@@ -1,11 +1,28 @@
 package common
 
 const (
-	LOGINSERVER   = 1
-	DBSERVER      = 2
-	GLOBALSERVER  = 3
-	GATEWAYSERVER = 4
-	MATCHSERVER   = 5
-	GAMESERVER    = 6
-	SCENESERVER   = 7
+	CONFIGSERVER = 1
+
+	LOGINSERVER             = 2
+	LOGINSERVER_CONFIG_NAME = "loginserver"
+
+	DBSERVER             = 3
+	DBSERVER_CONFIG_NAME = "dbserver"
+
+	LBSERVER             = 4
+	LBSERVER_CONFIG_NAME = "lbserver"
+
+	MATCHSERVER             = 5
+	MATCHSERVER_CONFIG_NAME = "matchserver"
+
+	GLOBALSERVER = 6
+
+	GATEWAYSERVER             = 21
+	GATEWAYSERVER_CONFIG_NAME = "gatewayserver"
+
+	GAMESERVER             = 22
+	GAMESERVER_CONFIG_NAME = "gameserver"
+
+	SCENESERVER             = 23
+	SCENESERVER_CONFIG_NAME = "sceneserver"
 )

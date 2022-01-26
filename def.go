@@ -15,7 +15,8 @@ const (
 	MATCHSERVER             = 5
 	MATCHSERVER_CONFIG_NAME = "matchserver"
 
-	GLOBALSERVER = 6
+	GLOBALSERVER             = 6
+	GLOBALSERVER_CONFIG_NAME = "globalserver"
 
 	GATEWAYSERVER             = 21
 	GATEWAYSERVER_CONFIG_NAME = "gatewayserver"

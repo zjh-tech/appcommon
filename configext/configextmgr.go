@@ -40,7 +40,7 @@ func (c *ConfigExtMgr) Init() bool {
 					creeps = append(creeps, creep)
 				}
 			}
-			if len(creeps) == 0 {
+			if len(creeps) != 0 {
 				c.RoundCreeps[roundBaseInfo.ID] = creeps
 			}
 		}

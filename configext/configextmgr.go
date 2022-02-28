@@ -2,6 +2,7 @@ package configext
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/zjh-tech/appcommon/config"
@@ -11,12 +12,14 @@ import (
 type ConfigExtMgr struct {
 	ChessExchangeMap map[uint32]uint32              //RealId-Tid
 	RoundCreeps      map[uint32][]*RoundSummonCreep //RoundId -RoundSummonCreep
+	SortFetters      map[uint32]*SortFetters
 }
 
 func NewConfigExtMgr() *ConfigExtMgr {
 	return &ConfigExtMgr{
 		ChessExchangeMap: make(map[uint32]uint32),
 		RoundCreeps:      make(map[uint32][]*RoundSummonCreep),
+		SortFetters:      make(map[uint32]*SortFetters),
 	}
 }
 
@@ -44,6 +47,20 @@ func (c *ConfigExtMgr) Init() bool {
 				c.RoundCreeps[roundBaseInfo.ID] = creeps
 			}
 		}
+	}
+
+	for _, fetterBaseInfo := range config.GConfigMgr.FettersBaseCfg.Datas {
+		if sortFetter, ok := c.SortFetters[fetterBaseInfo.RealID]; ok {
+			(*sortFetter).FettersBases = append((*sortFetter).FettersBases, fetterBaseInfo)
+		} else {
+			sortFetter := NewSortFetters()
+			(*sortFetter).FettersBases = append((*sortFetter).FettersBases, fetterBaseInfo)
+			c.SortFetters[fetterBaseInfo.RealID] = sortFetter
+		}
+	}
+
+	for _, SortFetter := range c.SortFetters {
+		sort.Sort(SortFettersByNumActivations{*SortFetter})
 	}
 
 	return true

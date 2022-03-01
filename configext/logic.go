@@ -43,12 +43,23 @@ func (s SortFettersByNumActivations) Less(i, j int) bool {
 
 //---------------------------------
 
+type ExtRetrofitBelong struct {
+	RetrofitBases []*config.RetrofitBase //Belong
+	TotalWeight   int
+}
+
+func NewExtRetrofitBelong() *ExtRetrofitBelong {
+	return &ExtRetrofitBelong{
+		RetrofitBases: make([]*config.RetrofitBase, 0),
+	}
+}
+
 type ExtRetrofit struct {
-	RetrofitBases []*config.RetrofitBase
+	Belongs map[uint32]*ExtRetrofitBelong //Belong - ExtRetrofitBelong
 }
 
 func NewExtRetrofit() *ExtRetrofit {
 	return &ExtRetrofit{
-		RetrofitBases: make([]*config.RetrofitBase, 0),
+		Belongs: make(map[uint32]*ExtRetrofitBelong),
 	}
 }

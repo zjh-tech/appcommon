@@ -65,12 +65,30 @@ func (c *ConfigExtMgr) Init() bool {
 	}
 
 	for _, retrofitBaseInfo := range config.GConfigMgr.RetrofitBaseCfg.Datas {
-		if extRetrofit, ok := c.ExtRetrofits[retrofitBaseInfo.Type]; ok {
-			extRetrofit.RetrofitBases = append(extRetrofit.RetrofitBases, retrofitBaseInfo)
-		} else {
-			extRetrofit := NewExtRetrofit()
-			extRetrofit.RetrofitBases = append(extRetrofit.RetrofitBases, retrofitBaseInfo)
+		var extRetrofit *ExtRetrofit
+		if tempExtRetrofit, ok := c.ExtRetrofits[retrofitBaseInfo.Type]; !ok {
+			extRetrofit = NewExtRetrofit()
 			c.ExtRetrofits[retrofitBaseInfo.Type] = extRetrofit
+		} else {
+			extRetrofit = tempExtRetrofit
+		}
+
+		var extRetrofitBelongs *ExtRetrofitBelong
+		if tempExtRetrofitBelongs, ok := extRetrofit.Belongs[retrofitBaseInfo.Belong]; !ok {
+			extRetrofitBelongs = NewExtRetrofitBelong()
+			extRetrofit.Belongs[retrofitBaseInfo.Belong] = extRetrofitBelongs
+		} else {
+			extRetrofitBelongs = tempExtRetrofitBelongs
+		}
+
+		extRetrofitBelongs.RetrofitBases = append(extRetrofitBelongs.RetrofitBases, retrofitBaseInfo)
+	}
+
+	for _, extRetrofit := range c.ExtRetrofits {
+		for _, extRetrofitBelong := range extRetrofit.Belongs {
+			for _, extRetrofitBelongInfo := range extRetrofitBelong.RetrofitBases {
+				extRetrofitBelong.TotalWeight += int(extRetrofitBelongInfo.Weights)
+			}
 		}
 	}
 

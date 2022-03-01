@@ -40,3 +40,15 @@ type SortFettersByNumActivations struct {
 func (s SortFettersByNumActivations) Less(i, j int) bool {
 	return s.FettersBases[i].NumActivations >= s.FettersBases[j].NumActivations
 }
+
+//---------------------------------
+
+type ExtRetrofit struct {
+	RetrofitBases []*config.RetrofitBase
+}
+
+func NewExtRetrofit() *ExtRetrofit {
+	return &ExtRetrofit{
+		RetrofitBases: make([]*config.RetrofitBase, 0),
+	}
+}

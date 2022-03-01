@@ -12,7 +12,8 @@ import (
 type ConfigExtMgr struct {
 	ChessExchangeMap map[uint32]uint32              //RealId-Tid
 	RoundCreeps      map[uint32][]*RoundSummonCreep //RoundId -RoundSummonCreep
-	SortFetters      map[uint32]*SortFetters
+	SortFetters      map[uint32]*SortFetters        //ReadID - SortFetters
+	ExtRetrofits     map[uint32]*ExtRetrofit        //EquipType-ExtRetrofit
 }
 
 func NewConfigExtMgr() *ConfigExtMgr {
@@ -61,6 +62,16 @@ func (c *ConfigExtMgr) Init() bool {
 
 	for _, SortFetter := range c.SortFetters {
 		sort.Sort(SortFettersByNumActivations{*SortFetter})
+	}
+
+	for _, retrofitBaseInfo := range config.GConfigMgr.RetrofitBaseCfg.Datas {
+		if extRetrofit, ok := c.ExtRetrofits[retrofitBaseInfo.Type]; ok {
+			extRetrofit.RetrofitBases = append(extRetrofit.RetrofitBases, retrofitBaseInfo)
+		} else {
+			extRetrofit := NewExtRetrofit()
+			extRetrofit.RetrofitBases = append(extRetrofit.RetrofitBases, retrofitBaseInfo)
+			c.ExtRetrofits[retrofitBaseInfo.Type] = extRetrofit
+		}
 	}
 
 	return true

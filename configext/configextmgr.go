@@ -14,6 +14,7 @@ type ConfigExtMgr struct {
 	RoundCreeps      map[uint32][]*RoundSummonCreep //RoundId -RoundSummonCreep
 	SortFetters      map[uint32]*SortFetters        //ReadID - SortFetters
 	ExtRetrofits     map[uint32]*ExtRetrofit        //EquipType-ExtRetrofit
+	EquipAssistPool  *ExtRetrofitBelong
 }
 
 func NewConfigExtMgr() *ConfigExtMgr {
@@ -82,6 +83,10 @@ func (c *ConfigExtMgr) Init() bool {
 		}
 
 		extRetrofitBelongs.RetrofitBases = append(extRetrofitBelongs.RetrofitBases, retrofitBaseInfo)
+
+		if retrofitBaseInfo.Type == EQUIP_ASSIST_TYPE && (retrofitBaseInfo.Belong == EQUIP_BELONG_SPECIAL || retrofitBaseInfo.Belong == EQUIP_BELONG_RARE) {
+			c.EquipAssistPool.RetrofitBases = append(c.EquipAssistPool.RetrofitBases, retrofitBaseInfo)
+		}
 	}
 
 	for _, extRetrofit := range c.ExtRetrofits {
@@ -90,6 +95,10 @@ func (c *ConfigExtMgr) Init() bool {
 				extRetrofitBelong.TotalWeight += int(extRetrofitBelongInfo.Weights)
 			}
 		}
+	}
+
+	for _, extRetrofitBelongInfo := range c.EquipAssistPool.RetrofitBases {
+		c.EquipAssistPool.TotalWeight += int(extRetrofitBelongInfo.Weights)
 	}
 
 	return true

@@ -63,3 +63,15 @@ func NewExtRetrofit() *ExtRetrofit {
 		Belongs: make(map[uint32]*ExtRetrofitBelong),
 	}
 }
+
+const (
+	EQUIP_ATTACK_TYPE  uint32 = 1 //攻击
+	EQUIP_DEFENSE_TYPE uint32 = 2 //防御
+	EQUIP_ASSIST_TYPE  uint32 = 3 //辅助
+)
+
+const (
+	EQUIP_BELONG_BASE    uint32 = 1 //基础
+	EQUIP_BELONG_SPECIAL uint32 = 2 //特殊
+	EQUIP_BELONG_RARE    uint32 = 3 //稀有
+)

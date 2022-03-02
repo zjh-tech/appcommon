@@ -22,6 +22,8 @@ func NewConfigExtMgr() *ConfigExtMgr {
 		ChessExchangeMap: make(map[uint32]uint32),
 		RoundCreeps:      make(map[uint32][]*RoundSummonCreep),
 		SortFetters:      make(map[uint32]*SortFetters),
+		ExtRetrofits:     make(map[uint32]*ExtRetrofit),
+		EquipAssistPool:  NewExtRetrofitBelong(),
 	}
 }
 

@@ -123,6 +123,43 @@ func (c *ConfigExtMgr) GetRoundSummonCreeps(roundId uint32) ([]*RoundSummonCreep
 	}
 }
 
+//是否属于控制状态
+func (c *ConfigExtMgr) BuffIsControlState(state config.BuffType) bool {
+	for _, buffState := range config.GConfigMgr.BuffStateCfg.Datas {
+		if buffState.ID == uint32(state) && buffState.ControlFlag == 1 {
+			return true
+		}
+	}
+	return false
+}
+
+func (c *ConfigExtMgr) BuffCanNormalAttack(state config.BuffType) bool {
+	for _, buffState := range config.GConfigMgr.BuffStateCfg.Datas {
+		if buffState.ID == uint32(state) && buffState.NormalAttackFlag == 0 {
+			return false
+		}
+	}
+	return true
+}
+
+func (c *ConfigExtMgr) BuffCanWalk(state config.BuffType) bool {
+	for _, buffState := range config.GConfigMgr.BuffStateCfg.Datas {
+		if buffState.ID == uint32(state) && buffState.WalkFlag == 0 {
+			return false
+		}
+	}
+	return true
+}
+
+func (c *ConfigExtMgr) BuffCanReleaseSkill(state config.BuffType) bool {
+	for _, buffState := range config.GConfigMgr.BuffStateCfg.Datas {
+		if buffState.ID == uint32(state) && buffState.ReleaseSkillFlag == 0 {
+			return false
+		}
+	}
+	return true
+}
+
 var GConfigExtMgr *ConfigExtMgr
 
 func init() {
